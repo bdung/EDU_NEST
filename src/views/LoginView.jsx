@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const accounts = [
   { username: "admin", password: "123", role: "admin" },
+  { username: "thuong_9", password: "thuong123", role: "user" },
+  { username: "linh_9", password: "linh123", role: "user" },
   { username: "user", password: "123", role: "user" },
+  
 ];
 
 function LoginView() {
@@ -20,8 +23,10 @@ function LoginView() {
     }
 
     // Lưu role và username vào localStorage
-    localStorage.setItem("role", account.role);
-    localStorage.setItem("username", account.username);
+    // localStorage.setItem("role", account.role);
+    // localStorage.setItem("username", account.username);
+    sessionStorage.setItem("role", account.role);
+    sessionStorage.setItem("username", account.username);
 
     // Redirect theo role
     if (account.role === "admin") navigate("/editor");
@@ -31,7 +36,7 @@ function LoginView() {
   return (
     <div style={{ padding: "50px", maxWidth: "400px", margin: "auto" }}>
       <h2>Đăng nhập</h2>
-      <form onSubmit={handleLogin}>
+      <form className="block text-sm/6 font-medium text-white"  onSubmit={handleLogin}>
         <div>
           <input
             type="text"

@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginView from "./views/LoginView";
 import EditorView from "./views/EditorView";
 import ExamView from "./views/ExamView";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ScreenLogView from "./views/ScreenLogView";
 
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <Router>
       <Routes>
+        
         <Route path="/" element={<LoginView />} />
         
         {/* Chỉ admin mới vào EditorView */}
@@ -17,6 +19,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <EditorView />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/log" 
+          element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <ScreenLogView />
             </ProtectedRoute>
           } 
         />

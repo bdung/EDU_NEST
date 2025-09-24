@@ -1,8 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import Question from "../components/Question";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 function EditorView() {
   const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState("");
+  const questionsRef = useRef();
+  const [examTitle, setExamTitle] = useState(
+  localStorage.getItem("examTitle") || "Đề thi");
+  const [examDuration, setExamDuration] = useState(
+  localStorage.getItem("examDuration") || 60 );
+
+
+
 
   // Load từ localStorage
   useEffect(() => {
@@ -52,13 +62,45 @@ const handleLogout = () => {
       }
     }
   };
-
+ // Tải PDF
+  const handleDownloadPDF = () => {
+    const input = questionsRef.current;
+    html2canvas(input, { scale: 2 }).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "pt", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("de-thi.pdf");
+    });
+  };
   return (
     <div style={{ display: "flex", padding: "20px", userSelect: "none" }}>
       
       {/* Cột trái: Form + Preview */}
       <div style={{ flex: 1, marginRight: "20px" }}>
         <h1>Nhập đề toán (Text + LaTeX + Hình)</h1>
+        <input
+        type="text"
+        value={examTitle}
+        onChange={(e) => {
+          setExamTitle(e.target.value);
+          localStorage.setItem("examTitle", e.target.value);
+        }}
+        placeholder="Nhập tiêu đề đề thi"
+        style={{ fontSize: "20px", marginBottom: "20px", width: "100%" }}
+      />
+      <input
+        type="number"
+        value={examDuration}
+        min={1}
+        onChange={(e) => {
+          setExamDuration(e.target.value);
+          localStorage.setItem("examDuration", e.target.value);
+        }}
+        placeholder="Nhập thời gian thi (phút)"
+        style={{ fontSize: "16px", marginBottom: "20px" }}
+      />
         <form onSubmit={handleAddQuestion} style={{ marginBottom: "20px" }}>
           <textarea
             placeholder="Text + LaTeX ($...$ inline, $$...$$ block). Paste hình từ clipboard."
@@ -80,19 +122,22 @@ const handleLogout = () => {
       </div>
 
       {/* Cột phải: Danh sách câu hỏi */}
-      <div style={{ flex: 1, borderLeft: "1px solid #ccc", paddingLeft: "20px" }}>
-        <h2>Danh sách câu hỏi</h2>
-        {questions.length === 0 && <p>Chưa có câu hỏi nào.</p>}
-        {questions.map((q, index) => (
-          <div key={q.id} style={{ display: "flex", alignItems: "flex-start" }}>
-            <div style={{ flex: 1 }}>
-              <strong>Câu {index + 1}:</strong> <Question content={q.content} />
-            </div>
-            <button onClick={() => handleDeleteQuestion(q.id)}>Xóa</button>
-          </div>
-        ))}
+      <div ref={questionsRef} style={{ flex: 1, borderLeft: "1px solid #ccc", paddingLeft: "20px" }}>
+  <h2>Danh sách câu hỏi</h2>
+  {questions.length === 0 && <p>Chưa có câu hỏi nào.</p>}
+  {questions.map((q, index) => (
+    <div key={q.id} style={{ display: "flex", alignItems: "flex-start" }}>
+      <div style={{ flex: 1 }}>
+        <strong>Câu {index + 1}:</strong> <Question content={q.content} />
       </div>
+      <button onClick={() => handleDeleteQuestion(q.id)}>Xóa</button>
     </div>
+  ))}
+  <button onClick={handleDownloadPDF} style={{ marginTop: "20px" }}>Tải PDF đề thi</button>
+  
+</div>
+      
+          </div>
   );
 }
 
