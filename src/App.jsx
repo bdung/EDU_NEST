@@ -3,13 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginView from "./views/LoginView";
 import EditorView from "./views/EditorView";
 import ExamView from "./views/ExamView";
-<<<<<<< HEAD
-import ScreenLogView from "./views/ScreenLogView";
-import SurveyComponent from "./components/SurveyComponent";
-import 'katex/dist/katex.min.css';
+import AdminView from "./views/AdminView";
 
-=======
->>>>>>> parent of bad0eae (add time)
+
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -27,24 +23,24 @@ function App() {
             </ProtectedRoute>
           } 
         />
-
-        {/* Admin và user đều có quyền vào ExamView */}
-        <Route 
-          path="/exam" 
+<Route 
+          path="/answer" 
           element={
-            <ProtectedRoute allowedRoles={["admin","user"]}>
-              <SurveyComponent />
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <AdminView />
             </ProtectedRoute>
           } 
         />
+        {/* Admin và user đều có quyền vào ExamView */}
         <Route 
-          path="/servey" 
+          path="/exam" 
           element={
             <ProtectedRoute allowedRoles={["admin","user"]}>
               <ExamView />
             </ProtectedRoute>
           } 
         />
+        
       </Routes>
     </Router>
   );
