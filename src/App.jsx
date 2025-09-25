@@ -38,7 +38,7 @@ function App() {
           path="/exam" 
           element={
             <ProtectedRoute allowedRoles={["admin","user"]}>
-              <ExamView />
+              <SurveyComponent />
             </ProtectedRoute>
           } 
         />
