@@ -5,8 +5,6 @@ import EditorView from "./views/EditorView";
 import ExamView from "./views/ExamView";
 import ScreenLogView from "./views/ScreenLogView";
 import SurveyComponent from "./components/SurveyComponent";
-import 'katex/dist/katex.min.css';
-
 import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
