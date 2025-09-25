@@ -23,22 +23,22 @@ function SurveyComponent() {
     survey.onComplete.add((sender, options) => {
         console.log(JSON.stringify(sender.data, null, 3));
     });
-    // Render lại cả title + choices
-    survey.onAfterRenderQuestion.add((survey, options) => {
-        // Render title
-        const titleEl = options.htmlElement.querySelector(".sv-title-actions__title .sv-string-viewer");
-        renderWithQuestion(titleEl, options.question.title);
+    // // Render lại cả title + choices
+    // survey.onAfterRenderQuestion.add((survey, options) => {
+    //     // Render title
+    //     const titleEl = options.htmlElement.querySelector(".sv-title-actions__title .sv-string-viewer");
+    //     renderWithQuestion(titleEl, options.question.title);
 
-        const choiceEls = options.htmlElement.querySelectorAll(".sd-item__control-label .sv-string-viewer");
-        choiceEls.forEach((el, idx) => {
-        const choice = options.question.choices[idx];
-        if (choice) {
-            // choice có thể là string hoặc object {value, text}
-            const text = typeof choice === "string" ? choice : choice.text;
-            renderWithQuestion(el, text);
-        }
-        });
-    });
+    //     const choiceEls = options.htmlElement.querySelectorAll(".sd-item__control-label .sv-string-viewer");
+    //     choiceEls.forEach((el, idx) => {
+    //     const choice = options.question.choices[idx];
+    //     if (choice) {
+    //         // choice có thể là string hoặc object {value, text}
+    //         const text = typeof choice === "string" ? choice : choice.text;
+    //         renderWithQuestion(el, text);
+    //     }
+    //     });
+    // });
     return (<Survey model={survey} />);
 }
 
