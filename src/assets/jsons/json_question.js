@@ -30,8 +30,8 @@ export const json_question = {
           "title": "cho a b biết $$$$ $\\frac{2}{3}$",
           "choices": [
             "cho a b biết $$$$ $\\frac{2}{3}$",
-            "1810-1814",
-            "1861-1865",
+            "$\\frac{2}{3}$",
+            "$\\frac{2}{3}$",
             "1939-1945"
           ],
           "correctAnswer": "1861-1865"
