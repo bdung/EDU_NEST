@@ -10,9 +10,6 @@ function ExamView() {
   const [timeLeft, setTimeLeft] = useState(
     parseInt(localStorage.getItem("examDuration") || 0) * 60 // đổi sang giây
   );
-
-
-
 const handleLogout = () => {
   localStorage.removeItem("role");
   localStorage.removeItem("username");
