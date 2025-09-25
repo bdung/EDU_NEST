@@ -12,8 +12,11 @@ function renderWithQuestion(el, text) {
     el.innerHTML = ""; // Xóa text cũ
     const mountPoint = document.createElement("div");
     el.appendChild(mountPoint);
-    const root = createRoot(mountPoint);
-    root.render(<Question content={text} />);
+    setTimeout(() => { // đảm bảo DOM đã mount
+      const root = createRoot(mountPoint);
+      root.render(<Question content={text} />);
+    }, 0);
+    
   }
 }
 function SurveyComponent() {
@@ -21,9 +24,6 @@ function SurveyComponent() {
     survey.onComplete.add((sender, options) => {
         console.log(JSON.stringify(sender.data, null, 3));
     });
-    
-
-    
     // Render lại cả title + choices
     survey.onAfterRenderQuestion.add((survey, options) => {
         // Render title
@@ -31,14 +31,14 @@ function SurveyComponent() {
         renderWithQuestion(titleEl, options.question.title);
 
         const choiceEls = options.htmlElement.querySelectorAll(".sd-item__control-label .sv-string-viewer");
-choiceEls.forEach((el, idx) => {
-  const choice = options.question.choices[idx];
-  if (choice) {
-    // choice có thể là string hoặc object {value, text}
-    const text = typeof choice === "string" ? choice : choice.text;
-    renderWithQuestion(el, text);
-  }
-});
+        choiceEls.forEach((el, idx) => {
+        const choice = options.question.choices[idx];
+        if (choice) {
+            // choice có thể là string hoặc object {value, text}
+            const text = typeof choice === "string" ? choice : choice.text;
+            renderWithQuestion(el, text);
+        }
+        });
     });
     return (<Survey model={survey} />);
 }
