@@ -21,7 +21,9 @@
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.9.1",
     "rehype-katex": "^7.0.1",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "survey-core": "^2.3.8",
+    "survey-react-ui": "^2.3.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

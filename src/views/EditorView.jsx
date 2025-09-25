@@ -20,12 +20,7 @@ function EditorView() {
     setQuestions(saved);
   }, []);
 
-  // Chặn copy
-  useEffect(() => {
-    const handleCopy = e => e.preventDefault();
-    document.addEventListener("copy", handleCopy);
-    return () => document.removeEventListener("copy", handleCopy);
-  }, []);
+ 
 const handleLogout = () => {
   localStorage.removeItem("role");
   localStorage.removeItem("username");

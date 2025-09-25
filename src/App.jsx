@@ -4,6 +4,8 @@ import LoginView from "./views/LoginView";
 import EditorView from "./views/EditorView";
 import ExamView from "./views/ExamView";
 import ScreenLogView from "./views/ScreenLogView";
+import SurveyComponent from "./components/SurveyComponent";
+
 
 import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
@@ -37,6 +39,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["admin","user"]}>
               <ExamView />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/servey" 
+          element={
+            <ProtectedRoute allowedRoles={["admin","user"]}>
+              <SurveyComponent />
             </ProtectedRoute>
           } 
         />
