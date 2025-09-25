@@ -27,9 +27,9 @@ export const json_question = {
         {
           "type": "radiogroup",
           "name": "civilwar",
-          "title": "cho a b biết $$$$ $ \\frac{2}{3}$",
+          "title": "cho a b biết $$$$ $\\frac{2}{3}$",
           "choices": [
-            "cho a b biết $$$$ $ \\frac{2}{3}$",
+            "cho a b biết $$$$ $\\frac{2}{3}$",
             "1810-1814",
             "1861-1865",
             "1939-1945"
