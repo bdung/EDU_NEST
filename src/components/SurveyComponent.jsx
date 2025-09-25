@@ -12,8 +12,11 @@ function renderWithQuestion(el, text) {
     el.innerHTML = ""; // Xóa text cũ
     const mountPoint = document.createElement("div");
     el.appendChild(mountPoint);
-    const root = createRoot(mountPoint);
-    root.render(<Question content={text} />);
+    setTimeout(() => { // đảm bảo DOM đã mount
+      const root = createRoot(mountPoint);
+      root.render(<Question content={text} />);
+    }, 0);
+    
   }
 }
 function SurveyComponent() {
