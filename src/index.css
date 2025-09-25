@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(23, 22, 22, 0.87);
-  background-color: #c5bfbf;
+  background-color: #f0f0f0;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -67,4 +67,12 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+.card{
+    background-color: rgb(255, 255, 255);
+    
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+   
 }

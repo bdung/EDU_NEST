@@ -24,16 +24,16 @@ function LoginView() {
     localStorage.setItem("username", account.username);
 
     // Redirect theo role
-    if (account.role === "admin") navigate("/editor");
+    if (account.role === "admin") navigate("/answer");
     else navigate("/exam");
   };
 
   return (
-    <div style={{ padding: "50px", maxWidth: "400px", margin: "auto" }}>
+    <div className="card " style={{ padding: "50px", maxWidth: "400px", margin: "auto" }}>
       <h2>Đăng nhập</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <input
+          <input className="form-control"
             type="text"
             placeholder="Username"
             value={username}
@@ -42,7 +42,7 @@ function LoginView() {
           />
         </div>
         <div>
-          <input
+          <input className="form-control"
             type="password"
             placeholder="Password"
             value={password}
@@ -51,7 +51,7 @@ function LoginView() {
           />
         </div>
         {error && <div style={{ color: "red", marginBottom: "10px" }}>{error}</div>}
-        <button type="submit" style={{ width: "100%", padding: "8px" }}>Login</button>
+        <button className="btn btn-primary" type="submit" style={{ width: "100%", padding: "8px" }}>Login</button>
       </form>
     </div>
   );

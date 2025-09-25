@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Question from "../components/Question";
-
+import { useNavigate } from "react-router-dom";
 function EditorView() {
   const [questions, setQuestions] = useState([]);
   const [type, setType] = useState("mcq"); // "mcq" hoặc "essay"
@@ -129,16 +129,25 @@ const handlePasteOption = (e, index) => {
       </div>
     );
   };
+const navigate = useNavigate();
 
+  const handleManageExam = () => {
+    // Chuyển qua EditorView
+    navigate("/answer"); // đường dẫn tới EditorView
+  };
   return (
     
     <div style={{ display: "flex", padding: 20 }}>
+      
       {/* Cột form */}
       <div style={{ flex: 1, marginRight: 20 }}>
+        <button className="btn btn-primary" onClick={handleManageExam} style={{ marginBottom: 10 }}>DS đề thi</button>
+          
         <div style={{ marginBottom: 20 }}>
+          
   <label>
     Tiêu đề đề thi: 
-    <input
+    <input className="form-control"
       type="text"
       value={examTitle}
       onChange={e => setExamTitle(e.target.value)}
@@ -148,7 +157,7 @@ const handlePasteOption = (e, index) => {
 
   <label>
     Ngày giờ mở đề: 
-    <input
+    <input className="form-control"
       type="datetime-local"
       value={startDateTime}
       onChange={e => setStartDateTime(e.target.value)}
@@ -158,7 +167,7 @@ const handlePasteOption = (e, index) => {
 
   <label>
     Ngày giờ đóng đề: 
-    <input
+    <input className="form-control"
       type="datetime-local"
       value={endDateTime}
       onChange={e => setEndDateTime(e.target.value)}
@@ -170,14 +179,14 @@ const handlePasteOption = (e, index) => {
 
         <label>
           Loại câu hỏi:
-          <select value={type} onChange={(e) => setType(e.target.value)}>
+          <select className="form-control" value={type} onChange={(e) => setType(e.target.value)}>
             <option value="mcq">Trắc nghiệm</option>
             <option value="essay">Tự luận</option>
           </select>
         </label>
 
         <form onSubmit={handleAddQuestion} style={{ marginTop: 15 }}>
-          <textarea
+          <textarea className="form-control"
             placeholder="Nhập nội dung câu hỏi (Text + LaTeX)"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -189,7 +198,7 @@ const handlePasteOption = (e, index) => {
           {type === "mcq" &&
             options.map((opt, i) => (
   <div key={i} style={{ marginBottom: 5 }}>
-    <textarea
+    <textarea className="form-control"
       placeholder={`Đáp án ${i + 1}`}
       value={opt}
       rows={2}
@@ -202,7 +211,7 @@ const handlePasteOption = (e, index) => {
       onPaste={(e) => handlePasteOption(e, i)}
     />
     <label style={{ marginLeft: 10 }}>
-      <input
+      <input 
         type="radio"
         name="correct"
         checked={answer === i}
@@ -215,7 +224,7 @@ const handlePasteOption = (e, index) => {
 
           
 
-          <button type="submit" style={{ marginTop: 10 }}>
+          <button className="btn btn-primary" type="submit" style={{ marginTop: 10 }}>
             ➕ Thêm câu hỏi
           </button>
         </form>
@@ -223,7 +232,7 @@ const handlePasteOption = (e, index) => {
         {/* Preview live */}
         {renderLivePreview()}
 
-        <button onClick={handleSaveExam} style={{ marginTop: 20 }}>
+        <button className="btn btn-primary" onClick={handleSaveExam} style={{ marginTop: 20 }}>
           💾 Lưu tất cả lên Firebase
         </button>
       </div>
@@ -250,7 +259,7 @@ const handlePasteOption = (e, index) => {
               </ul>
             )}
 
-            <button onClick={() => handleDeleteQuestion(q.id)}>❌ Xóa</button>
+            <button className="btn btn-primary" onClick={() => handleDeleteQuestion(q.id)}>❌ Xóa</button>
           </div>
         ))}
       </div>

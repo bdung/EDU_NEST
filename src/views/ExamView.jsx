@@ -82,6 +82,7 @@ function ExamView() {
         body: JSON.stringify(answers)
       });
       alert("✅ Nộp bài thành công!");
+      setSelectedExam(null);
     } catch (err) {
       console.error(err);
       alert("❌ Lỗi khi nộp bài");
@@ -112,6 +113,7 @@ function ExamView() {
           }
           return (
             <button
+            className="btn btn-primary"
               key={examId}
               onClick={() => setSelectedExam({ examId, ...examData })}
               style={{ display: "block", margin: "10px 0", padding: "10px" }}
@@ -131,7 +133,13 @@ const start = new Date(startDateTime);
   const end = new Date(endDateTime);
 
   if (now < start) return <p>Đề thi sẽ mở vào: {start.toLocaleString()}</p>;
-  if (now > end && !Object.keys(examGrades || {}).length) return <p>Đã hết thời gian làm đề</p>;
+  if (now > end && !Object.keys(examGrades || {}).length) {
+
+    return <>
+    <p>Đã hết thời gian làm đề</p>
+    <button className="btn btn-primary"  onClick={() => window.location.reload()}>Quay lại</button>
+  </>
+  }
 
   return (
     <div style={{ padding: 20, userSelect: "none" }}>
@@ -175,7 +183,7 @@ const start = new Date(startDateTime);
                 </p>
               )}
               {!examGrades && (
-                <input type="file" accept="image/*" onChange={(e) => handleUpload(q.id, e)} />
+                <input className="form-control" type="file" accept="image/*" onChange={(e) => handleUpload(q.id, e)} />
               )}
             </div>
           )}
@@ -183,13 +191,13 @@ const start = new Date(startDateTime);
       ))}
 
       {!examGrades && (
-        <button onClick={handleSubmit} style={{ marginTop: 20, padding: "10px 20px" }}>
-          📝 Nộp bài
+        <button className="btn btn-primary mt-3" onClick={handleSubmit} style={{  padding: "10px 20px" }}>
+          Nộp bài
         </button>
       )}
 
-      <button onClick={() => setSelectedExam(null)} style={{ marginLeft: 10, padding: "10px 20px" }}>
-        🔙 Chọn đề thi khác
+      <button className="btn btn-primary mt-3" onClick={() => setSelectedExam(null)} style={{ marginLeft: 20, padding: "10px 20px" }}>
+        Chọn đề thi khác
       </button>
     </div>
   );
