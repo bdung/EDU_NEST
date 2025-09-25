@@ -2,7 +2,6 @@ import React from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import "survey-core/survey-core.min.css";
-import "../index.css";
 import { json_question } from "../assets/jsons/json_question";
 import Question from "../components/Question";
 import { createRoot } from "react-dom/client";
