@@ -174,10 +174,6 @@ function ExamView() {
     <div style={{ padding: 20, userSelect: "none" }}>
       <h1>{examTitle}</h1>
 
-      <button className="btn btn-success mb-3" onClick={handleDownloadPDF}>
-        Tải PDF
-      </button>
-
       <div ref={contentRef}>
         {questions.length === 0 && <p>Chưa có câu hỏi nào.</p>}
 
