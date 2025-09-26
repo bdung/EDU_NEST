@@ -12,6 +12,11 @@ function ExamView() {
   const [answers, setAnswers] = useState({});
   const [grades, setGrades] = useState({});
   const [now, setNow] = useState(new Date());
+  const [loading, setLoading] = useState(false);
+const [submitted, setSubmitted] = useState(false);
+const [endSubmint, setSubmitend] = useState(false);
+
+
 
   const contentRef = useRef(); // Ref để export PDF
 
@@ -47,6 +52,20 @@ function ExamView() {
     const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+useEffect(() => {
+  if (selectedExam) {
+    setNow(new Date()); // reset giờ ngay khi vào đề
+  }
+}, [selectedExam]);
+useEffect(() => {
+  if (!selectedExam) return;
+  const end = new Date(selectedExam.endDateTime);
+  
+  if (now > end && !submitted) {
+    handleSubmit();
+    setSubmitted(true);
+  }
+}, [now, selectedExam, submitted]);
 
   // ------------------- Load câu trả lời học sinh -------------------
   useEffect(() => {
@@ -83,6 +102,7 @@ function ExamView() {
 
   // ------------------- Nộp bài -------------------
   const handleSubmit = async () => {
+    setLoading(true); // Bật loader
     try {
       await fetch(`${FIREBASE_URL}/answers/${selectedExam.examId}/${username}.json`, {
         method: "PUT",
@@ -94,7 +114,9 @@ function ExamView() {
     } catch (err) {
       console.error(err);
       alert("❌ Lỗi khi nộp bài");
-    }
+    }finally {
+    setLoading(false); // Tắt loader
+  }
   };
 
   // ------------------- Chặn copy -------------------
@@ -157,9 +179,10 @@ function ExamView() {
   const { examId, examTitle, startDateTime, endDateTime, questions, grades: examGrades } = selectedExam;
   const start = new Date(startDateTime);
   const end = new Date(endDateTime);
-
+ 
   if (now < start) return <p>Đề thi sẽ mở vào: {start.toLocaleString()}</p>;
-  if (now > end && !Object.keys(examGrades || {}).length) {
+  if (now > end ) {
+    
     return (
       <>
         <p>Đã hết thời gian làm đề</p>
@@ -169,11 +192,11 @@ function ExamView() {
       </>
     );
   }
-
-  return (
+  else{
+return (
     <div style={{ padding: 20, userSelect: "none" }}>
       <h1>{examTitle}</h1>
-
+      
       <div ref={contentRef}>
         {questions.length === 0 && <p>Chưa có câu hỏi nào.</p>}
 
@@ -239,9 +262,16 @@ function ExamView() {
       </div>
 
       {!examGrades && (
-        <button className="btn btn-primary mt-3" onClick={handleSubmit} style={{ padding: "10px 20px" }}>
-          Nộp bài
-        </button>
+        
+        <button 
+  className="btn btn-primary mt-3" 
+  onClick={handleSubmit} 
+  style={{ padding: "10px 20px" }}
+  disabled={loading} // Không cho click khi loading
+>
+  {loading ? "Đang nộp..." : "Nộp bài"}
+</button>
+
       )}
 
       <button className="btn btn-primary mt-3" onClick={() => setSelectedExam(null)} style={{ marginLeft: 20, padding: "10px 20px" }}>
@@ -249,6 +279,9 @@ function ExamView() {
       </button>
     </div>
   );
+  }
+
+  
 }
 
 export default ExamView;
