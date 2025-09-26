@@ -187,7 +187,7 @@ function ExamView() {
               Câu {idx + 1} ({q.type === "mcq" ? "Trắc nghiệm" : "Tự luận"}):
             </strong>
 
-            <Question content={q.content} />
+            <Question content={q.content} qid={q.id} />
 
             {q.type === "mcq" && (
               <div>

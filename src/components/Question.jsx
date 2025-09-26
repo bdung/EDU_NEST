@@ -3,7 +3,7 @@ import React from "react";
 import { InlineMath, BlockMath } from "react-katex";
 import 'katex/dist/katex.min.css';
 
-const Question = ({ content }) => {
+const Question = ({ content,qid }) => {
   // Chia block $$...$$ và inline $...$
   
   const renderContent = (text) => {
@@ -17,7 +17,7 @@ const Question = ({ content }) => {
           if (j % 2 === 1) return <InlineMath key={i + '-' + j} math={part} />;
           // Render Markdown hình
           const imgMatch = part.match(/!\[\]\((.*?)\)/);
-          if (imgMatch) return <img key={i+'-'+j} src={imgMatch[1]} alt="paste" style={{ maxWidth: "200px", display: "block", margin: "10px 0" }} />;
+          if (imgMatch) return <img key={i+'-'+j} className={qid == "1758852171954" ? "img-large" : "img-small"} src={imgMatch[1]} alt="paste"  />;
           return <span key={i+'-'+j}>{part}</span>;
         });
       }

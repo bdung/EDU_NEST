@@ -76,3 +76,12 @@ button:focus-visible {
     border-radius: 5px;
    
 }
+.img-large {
+  width: 358px;
+  margin-top: 10px;
+}
+
+.img-small {
+  max-width: 200px !important;
+  margin-top: 10px;
+}
