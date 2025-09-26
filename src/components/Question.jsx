@@ -8,10 +8,10 @@ const Question = ({ content }) => {
   const normalizeLaTeX = (str) => {
   if (!str) return "";
   return str
-   .replace(/\\+/g, "/\/") // \\ → \
-
-    .replace(/\u2212/g, "-");        // dấu trừ dài
+    .replace(/\\+/g, "\\") // tất cả \\ → 1 \
+    .replace(/\u2212/g, "-"); // dấu trừ dài
 };
+
   const renderContent = (text) => {
     const blockParts = text.split(/\$\$(.*?)\$\$/s);
     return blockParts.map((block, i) => {
