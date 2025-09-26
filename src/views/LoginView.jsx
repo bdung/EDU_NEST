@@ -3,6 +3,14 @@ import { useNavigate } from "react-router-dom";
 const accounts = [
   { username: "admin", password: "123", role: "admin" },
   { username: "user", password: "123", role: "user" },
+  { username: "thuong_9T35", password: "thuong_9T35", role: "user" },
+  { username: "linh_9T35", password: "linh_9T35", role: "user" },
+  { username: "htuoi_9T35", password: "htuoi_9T35", role: "user" },
+  { username: "user1", password: "123", role: "user" },
+  { username: "user2", password: "123", role: "user" },
+  { username: "user3", password: "123", role: "user" },
+  { username: "user4", password: "123", role: "user" },
+
 ];
 
 function LoginView() {

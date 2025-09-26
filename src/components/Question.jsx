@@ -1,10 +1,11 @@
 // src/components/Question.jsx
-import React, { StrictMode } from "react";
+import React from "react";
 import { InlineMath, BlockMath } from "react-katex";
 import 'katex/dist/katex.min.css';
 
 const Question = ({ content }) => {
-
+  // Chia block $$...$$ và inline $...$
+  
   const renderContent = (text) => {
     const blockParts = text.split(/\$\$(.*?)\$\$/s);
     return blockParts.map((block, i) => {

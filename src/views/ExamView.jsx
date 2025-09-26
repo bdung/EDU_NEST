@@ -182,7 +182,7 @@ function ExamView() {
         {questions.length === 0 && <p>Chưa có câu hỏi nào.</p>}
 
         {questions.map((q, idx) => (
-          <div key={q.id} style={{ marginBottom: 20, borderBottom: "1px solid #ccc", paddingBottom: 10 }}>
+          <div id = {q.id} key={q.id} style={{ marginBottom: 20, borderBottom: "1px solid #ccc", paddingBottom: 10 }}>
             <strong>
               Câu {idx + 1} ({q.type === "mcq" ? "Trắc nghiệm" : "Tự luận"}):
             </strong>
@@ -213,7 +213,15 @@ function ExamView() {
 
             {q.type === "essay" && (
               <div>
-                {answers[q.id] && <img src={answers[q.id]} alt="tự luận" style={{ maxWidth: 200, marginTop: 10 }} />}
+                {answers[q.id] && 
+                    <img
+  src={answers[q.id]}
+  alt="tự luận"
+  className={q.id == "1758852171954" ? "img-large" : "img-small"}
+
+ />
+                }
+
                 {examGrades && examGrades[q.id] && (
                   <p>
                     Điểm: {examGrades[q.id].score} | Ghi chú: {examGrades[q.id].note}
