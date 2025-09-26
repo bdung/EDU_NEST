@@ -20,11 +20,13 @@ function ExamView() {
         const data = await res.json();
         if (!data) return;
         const exams = Object.entries(data); // [examId, examData]
+        console.log(exams);
         // Kiểm tra nếu đã có grades
         const examsWithGrades = await Promise.all(
           exams.map(async ([examId, examData]) => {
             const resGrades = await fetch(`${FIREBASE_URL}/grades/${examId}/${username}.json`);
             const gradesData = await resGrades.json();
+             console.log(exams);
             return [examId, { ...examData, grades: gradesData }];
           })
         );
@@ -148,12 +150,16 @@ const start = new Date(startDateTime);
       {questions.length === 0 && <p>Chưa có câu hỏi nào.</p>}
 
       {questions.map((q, idx) => (
+        console.log(q),
         <div key={q.id} style={{ marginBottom: 20, borderBottom: "1px solid #ccc", paddingBottom: 10 }}>
           <strong>Câu {idx + 1} ({q.type === "mcq" ? "Trắc nghiệm" : "Tự luận"}):</strong>
+          
           <Question content={q.content} />
-
+          
           {q.type === "mcq" && (
             <div>
+          
+              
               {q.options.map((opt, i) => {
                 const selected = answers[q.id];
                 return (
